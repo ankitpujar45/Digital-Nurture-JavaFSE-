@@ -1,35 +1,53 @@
-import java.util.LinkedHashMap;
-import java.util.Map;
+package week1.InventoryManagementSystem.code;
+import java.util.HashMap;
 
 public class InventoryManager {
-    private final Map<Integer, Product> inventory = new LinkedHashMap<>();
+    private HashMap<Integer, Product> inventory;
 
+    public InventoryManager() {
+        inventory = new HashMap<>();
+    }
+
+    // Add Product
     public void addProduct(Product product) {
         inventory.put(product.getProductId(), product);
+        System.out.println("Product Added Successfully.");
     }
 
-    public void updateProduct(int productId, String productName, int quantity, double price) {
+    // Update Product
+    public void updateProduct(int productId,
+                              String newName,
+                              int newQuantity,
+                              double newPrice) {
+
         Product product = inventory.get(productId);
 
-        if (product == null) {
-            System.out.println("Product with ID " + productId + " not found.");
-            return;
-        }
+        if (product != null) {
+            product.setProductName(newName);
+            product.setQuantity(newQuantity);
+            product.setPrice(newPrice);
 
-        product.setProductName(productName);
-        product.setQuantity(quantity);
-        product.setPrice(price);
+            System.out.println("Product Updated Successfully.");
+        } else {
+            System.out.println("Product Not Found.");
+        }
     }
 
+    // Delete Product
     public void deleteProduct(int productId) {
-        if (inventory.remove(productId) == null) {
-            System.out.println("Product with ID " + productId + " not found.");
+
+        if (inventory.remove(productId) != null) {
+            System.out.println("Product Deleted Successfully.");
+        } else {
+            System.out.println("Product Not Found.");
         }
     }
 
+    // Display Inventory
     public void displayInventory() {
+
         if (inventory.isEmpty()) {
-            System.out.println("Inventory is empty.");
+            System.out.println("Inventory is Empty.");
             return;
         }
 
